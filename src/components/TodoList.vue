@@ -26,11 +26,8 @@ export default {
         removeTodo(todoItem, index) {
           this.$emit('removeEvent', todoItem, index);
         },
-        toggleComplete(todoItem) {
-            todoItem.completed = !todoItem.completed;
-            //localStorage에 updateItem 메서드가 없어서 removeItem하고 setItem 한다.
-            localStorage.removeItem(todoItem.item);
-            localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+        toggleComplete(todoItem, index) {
+          this.$emit('toggleEvent', todoItem, index);
         }
     },
     
