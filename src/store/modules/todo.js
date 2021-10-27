@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const api_url = 'http://localhost:4500/api/todos';
+const api_url = process.env.VUE_APP_APIURL;
+const todo_url = `${api_url}/api/todos`;
+//'http://localhost:4500/api/todos';
 
 //상태변수선언
 const state = {
@@ -10,31 +12,31 @@ const state = {
 //서버와 비동기 통신을 하는 method 선언
 const actions = {
     loadTodoItems(context) {
-        axios.get(`${api_url}`)
+        axios.get(`${todo_url}`)
             .then(res => res.data)
             .then(todo_data => context.commit('setTodoItems', todo_data))
             .catch(error => console.log('Error occurred ' + error));
     },
     removeTodo(context, payload) {
-        axios.delete(`${api_url}/${payload.id}`)
+        axios.delete(`${todo_url}/${payload.id}`)
             .then(res => res.data)
             .then(todo_data => context.commit('setTodoItems', todo_data))
             .catch(error => console.log('Error occurred ' + error));
     },
     addTodo(context, payload) {
-        axios.post(`${api_url}`, payload)
+        axios.post(`${todo_url}`, payload)
             .then(res => res.data)
             .then(todo_data => context.commit('setTodoItems', todo_data))
             .catch(error => console.log('Error occurred ' + error));
     },//addTodo
     toggleTodo(context, payload) {
-        axios.patch(`${api_url}/${payload.id}`, payload)
+        axios.patch(`${todo_url}/${payload.id}`, payload)
             .then(res => res.data)
             .then(todo_data => context.commit('setTodoItems', todo_data))
             .catch(error => console.log('Error occurred ' + error));
     },//toggleTodo
     clearTodo(context) {
-        axios.delete(`${api_url}`)
+        axios.delete(`${todo_url}`)
             .then(res => res.data)
             .then(todo_data => context.commit('setTodoItems', todo_data))
             .catch(error => console.log('Error occurred ' + error));
