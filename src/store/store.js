@@ -23,5 +23,20 @@ export const store = new Vuex.Store({
     state: {
         todoItems: storage.fetch()
     },
+    //상태변수를 변경하는 setter method 선언
+    mutations: {
+        addTodo(state, todoItemText) {
+            var obj = { completed: false, item: todoItemText };
+            //JSON.stringify는 object를 json string 으로 변환
+            localStorage.setItem(todoItemText, JSON.stringify(obj));
+            state.todoItems.push(obj);
+        },//addTodo
+        removeTodo(state, payload) {
+            const { todoItem, index } = payload;
+            localStorage.removeItem(todoItem.item);
+            state.todoItems.splice(index, 1);
+        },
+
+    },
 
 });
