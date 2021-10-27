@@ -2,10 +2,8 @@
   <div id="app">
     <TodoHeader></TodoHeader>
     <TodoInput></TodoInput>
-    <TodoList
-      @toggleEvent="toggleTodo"
-    ></TodoList>
-    <TodoFooter @clearEvent="clearTodo"></TodoFooter>
+    <TodoList></TodoList>
+    <TodoFooter></TodoFooter>
   </div>
 </template>
 
@@ -21,27 +19,6 @@ export default {
     TodoInput,
     TodoList,
     TodoFooter,
-  },
-  data() {
-    return {
-      todoItems: [],
-    };
-  },
-  methods: {
-    
-    toggleTodo(todoItem, index) {
-      //객체 비구조화 할당(destructuring assignment)
-      const { item, completed } = todoItem;
-      this.todoItems[index].completed = !completed;
-      //todoItem.completed = !todoItem.completed;
-      //localStorage에 updateItem 메서드가 없어서 removeItem하고 setItem 한다.
-      localStorage.removeItem(item);
-      localStorage.setItem(item, JSON.stringify(todoItem));
-    },
-    clearTodo() {
-      localStorage.clear();
-      this.todoItems = [];
-    },
   },
 };
 </script>
