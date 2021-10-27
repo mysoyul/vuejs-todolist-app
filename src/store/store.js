@@ -49,7 +49,13 @@ export const store = new Vuex.Store({
             localStorage.clear();
             state.todoItems = [];
         },
+    },//mutations
+    //상태변수를 조회하는 getter method 선언
+    getters: {
+        getTodoItems(state) {
+            return state.todoItems;
+        }
+    },//getters
 
-    },
 
 });
