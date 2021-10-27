@@ -2,9 +2,9 @@
     <div>
         <!--ul>li*3 -->
         <ul>
-            <li v-for="(todoItem, index) in getTodoItems" v-bind:key="todoItem.item" class="shadow">
+            <li v-for="(todoItem, index) in getTodoItems" v-bind:key="index" class="shadow">
                 <i class="fas fa-check checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}" 
-                    v-on:click="toggleTodo({todoItem,index})"></i>
+                    v-on:click="toggleTodo(todoItem)"></i>
                 <span v-bind:class="{textCompleted: todoItem.completed}">{{todoItem.item}}</span>
                 <span class="removeBtn" v-on:click="removeTodo(todoItem)">
                     <i class="fas fa-trash-alt"></i>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
     //lifecycle method
@@ -27,7 +27,11 @@ export default {
     },    
     methods: {
         ...mapActions(['removeTodo']),
-        ...mapMutations(['toggleTodo']),
+        toggleTodo(todoItem) {
+          const todo = {...todoItem, completed:!todoItem.completed};
+          this.$store.dispatch('toggleTodo', todo);
+        }
+        //...mapMutations(['toggleTodo']),
         // removeTodo(todoItem, index) {
         //   this.$store.commit('removeTodo', {todoItem, index});
         // },

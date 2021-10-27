@@ -29,6 +29,18 @@ export const store = new Vuex.Store({
                 .then(todo_data => context.commit('setTodoItems', todo_data))
                 .catch(error => console.log('Error occurred ' + error));
         },
+        addTodo(context, payload) {
+            axios.post(`${api_url}`, payload)
+                .then(res => res.data)
+                .then(todo_data => context.commit('setTodoItems', todo_data))
+                .catch(error => console.log('Error occurred ' + error));
+        },//addTodo
+        toggleTodo(context, payload) {
+            axios.patch(`${api_url}/${payload.id}`, payload)
+                .then(res => res.data)
+                .then(todo_data => context.commit('setTodoItems', todo_data))
+                .catch(error => console.log('Error occurred ' + error));
+        },//toggleTodo
 
     },
     //상태변수를 변경하는 setter method 선언
