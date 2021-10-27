@@ -41,7 +41,12 @@ export const store = new Vuex.Store({
                 .then(todo_data => context.commit('setTodoItems', todo_data))
                 .catch(error => console.log('Error occurred ' + error));
         },//toggleTodo
-
+        clearTodo(context) {
+            axios.delete(`${api_url}`)
+                .then(res => res.data)
+                .then(todo_data => context.commit('setTodoItems', todo_data))
+                .catch(error => console.log('Error occurred ' + error));
+        }
     },
     //상태변수를 변경하는 setter method 선언
     mutations: {
