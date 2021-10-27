@@ -2,10 +2,12 @@
   <div id="app">
     <TodoHeader></TodoHeader>
     <TodoInput @addEvent="addTodo"></TodoInput>
-    <TodoList :todo-list="todoItems" 
+    <TodoList
+      :todo-list="todoItems"
       @removeEvent="removeTodo"
-      @toggleEvent="toggleTodo"></TodoList>
-    <TodoFooter></TodoFooter>
+      @toggleEvent="toggleTodo"
+    ></TodoList>
+    <TodoFooter @clearEvent="clearTodo"></TodoFooter>
   </div>
 </template>
 
@@ -28,10 +30,10 @@ export default {
     };
   },
   methods: {
-    addTodo(todoItem) {
-      var obj = { completed: false, item: todoItem };
+    addTodo(todoItemText) {
+      var obj = { completed: false, item: todoItemText };
       //JSON.stringify는 object를 json string 으로 변환
-      localStorage.setItem(todoItem, JSON.stringify(obj));
+      localStorage.setItem(todoItemText, JSON.stringify(obj));
       this.todoItems.push(obj);
     },
     removeTodo(todoItem, index) {
@@ -46,6 +48,10 @@ export default {
       //localStorage에 updateItem 메서드가 없어서 removeItem하고 setItem 한다.
       localStorage.removeItem(item);
       localStorage.setItem(item, JSON.stringify(todoItem));
+    },
+    clearTodo() {
+      localStorage.clear();
+      this.todoItems = [];
     },
   },
   /* life cycle method */
