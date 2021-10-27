@@ -18,6 +18,10 @@
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
+    //lifecycle method
+    mounted() {
+      this.$store.dispatch('loadTodoItems');
+    },
     computed:{
       ...mapGetters(['getTodoItems']),  
     },    
