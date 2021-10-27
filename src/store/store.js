@@ -16,20 +16,25 @@ export const store = new Vuex.Store({
         todoItems: []
     },
     //서버와 비동기 통신을 하는 method 선언
-    actions:{
-        loadTodoItems(context){
-           axios.get(api_url)
+    actions: {
+        loadTodoItems(context) {
+            axios.get(`${api_url}`)
                 .then(res => res.data)
                 .then(todo_data => context.commit('setTodoItems', todo_data))
-                .catch(error => console.log('Error occurred ' + error));     
+                .catch(error => console.log('Error occurred ' + error));
         },
-
+        removeTodo(context, payload) {
+            axios.delete(`${api_url}/${payload.id}`)
+                .then(res => res.data)
+                .then(todo_data => context.commit('setTodoItems', todo_data))
+                .catch(error => console.log('Error occurred ' + error));
+        },
 
     },
     //상태변수를 변경하는 setter method 선언
     mutations: {
         setTodoItems(state, items) {
-            state.todoItems = items; 
+            state.todoItems = items;
         },
         addTodo(state, todoItemText) {
             var obj = { completed: false, item: todoItemText };
